@@ -1,0 +1,437 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Para Po Commuters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout concept: page 1 is a Philippine highway guide sign used as the poster (one bold moment).
+   Page 2 is a calm two-column reading page: sticky intro on the left, ruled lists on the right. */
+:root{
+  --ground:#E3E7E2;      /* concrete, leaning green */
+  --surface:#EEF1ED;
+  --ink:#12201A;
+  --muted:#4B5B53;
+  --line:#C2CAC4;
+  --link:#075A31;
+  --sign:#075A31;        /* guide-sign green */
+  --sign-ink:#F6F9F4;    /* reflective white */
+  --signal:#F2B705;      /* jeepney yellow */
+  --on-signal:#14201A;
+  --font-display:'Barlow Condensed','Arial Narrow','Helvetica Neue',Arial,sans-serif;
+  --font-body:'Barlow','Helvetica Neue',Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1310; --surface:#141C17; --ink:#E5ECE6; --muted:#9BABA1; --line:#27322B; --link:#6FD39B;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1310; --surface:#141C17; --ink:#E5ECE6; --muted:#9BABA1; --line:#27322B; --link:#6FD39B;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:1.0625rem;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:4px}
+
+.shell{
+  width:100%;
+  max-width:72rem;
+  margin-inline:auto;
+  padding-inline:clamp(16px,4vw,32px);
+  padding-block:.75rem 3rem;
+}
+
+/* Header */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.5rem 1.25rem}
+.plate{
+  font-family:var(--font-display);font-weight:800;font-size:1.5rem;line-height:1;
+  letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;
+  color:var(--on-signal);background:var(--signal);
+  padding:.45rem .8rem .4rem;border-radius:6px;box-shadow:inset 0 0 0 2px var(--on-signal);
+}
+.tabs{display:flex;gap:.25rem}
+.tabs a{
+  display:inline-flex;align-items:center;min-height:44px;padding-inline:.85rem;
+  font-weight:600;color:var(--ink);text-decoration:none;border-bottom:3px solid transparent;
+}
+.tabs a:hover{color:var(--link)}
+.tabs a[aria-current="page"]{border-bottom-color:var(--ink);font-weight:700}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;min-height:48px;padding:.6rem 1.3rem;
+  border:0;border-radius:10px;cursor:pointer;
+  background:var(--signal);color:var(--on-signal);
+  font:700 1.05rem/1.2 var(--font-body);text-decoration:none;
+  box-shadow:0 3px 0 rgba(0,0,0,.35);
+  transition:transform .12s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(0,0,0,.35)}
+
+/* ---------- Page 1: poster ---------- */
+.poster{
+  --pad:clamp(28px,5vw,56px);
+  position:relative;overflow:hidden;
+  background:var(--sign);color:var(--sign-ink);
+  border-radius:32px;padding:var(--pad);
+}
+.poster::before{ /* the white border line of a guide sign */
+  content:"";position:absolute;inset:12px;border:3px solid var(--sign-ink);border-radius:20px;pointer-events:none;
+}
+.poster > *{position:relative}
+.poster a:focus-visible{outline-color:var(--sign-ink)}
+
+.modes{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.5rem;padding:0;list-style:none}
+.modes li{
+  border:2px solid var(--sign-ink);border-radius:6px;padding:.1rem .6rem .05rem;
+  font-family:var(--font-display);font-weight:700;font-size:1.05rem;line-height:1.3;
+  letter-spacing:.07em;text-transform:uppercase;
+}
+
+.poster-grid{display:grid;gap:1.75rem 3rem;grid-template-columns:minmax(0,1fr)}
+.slogan{
+  margin:0;display:flex;flex-direction:column;
+  font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  line-height:.82;letter-spacing:-.005em;
+  font-size:min(31vw,9rem);
+}
+.slogan i{font-style:normal;color:var(--signal)}
+.tagline{
+  margin:0;font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(2rem,4.2vw,3rem);line-height:.95;color:var(--signal);
+}
+.tagline-en{margin:.6rem 0 1.25rem;max-width:34ch;font-size:1.05rem}
+
+.routes{margin:0 0 1.5rem;padding:0;list-style:none;border-bottom:2px solid rgba(246,249,244,.4)}
+.routes li{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding-block:.75rem;border-top:2px solid rgba(246,249,244,.4);
+}
+.routes b{
+  display:block;font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  font-size:1.75rem;line-height:1;letter-spacing:.01em;
+}
+.routes small{display:block;margin-top:.2rem;font-size:.95rem;opacity:.9}
+.arrow{width:1.9rem;height:1.9rem;flex:none;fill:var(--sign-ink)}
+
+.scene{
+  margin-top:2rem;
+  margin-inline:calc(15px - var(--pad));
+  margin-bottom:calc(15px - var(--pad));
+}
+.scene svg{
+  display:block;width:clamp(230px,34vw,360px);height:auto;
+  margin-left:clamp(16px,6%,64px);
+}
+.j-body{fill:var(--sign-ink)}
+.j-win{fill:var(--sign)}
+.j-yellow{fill:var(--signal)}
+.j-dark{fill:#101612}
+.j-hub{fill:var(--sign-ink);opacity:.85}
+.road{height:30px;background:rgba(0,0,0,.32);border-radius:0 0 17px 17px;overflow:hidden;position:relative}
+.road::before{
+  content:"";position:absolute;left:0;right:0;top:calc(50% - 2px);height:4px;
+  background-image:linear-gradient(90deg,var(--sign-ink) 50%,transparent 50%);
+  background-size:56px 4px;background-repeat:repeat-x;
+  animation:roll 1.8s linear infinite;
+}
+@keyframes roll{to{background-position:-56px 0}}
+
+.caption{margin:1rem 0 0;color:var(--muted);font-size:.95rem}
+
+@media (min-width:720px){
+  .poster-grid{grid-template-columns:auto minmax(0,1fr);align-items:start}
+  .slogan{font-size:clamp(7rem,16vw,12rem)}
+}
+
+/* ---------- Page 2: the advocacy ---------- */
+.adv{display:grid;gap:3rem;grid-template-columns:minmax(0,1fr);padding-block:1.5rem 1rem}
+.eyebrow{margin:0 0 .75rem;font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--link)}
+.adv h1{
+  margin:0 0 1.25rem;font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(2.75rem,7vw,4.75rem);line-height:.92;text-wrap:balance;
+}
+.lede{margin:0 0 1.5rem;max-width:34rem;font-size:1.2rem}
+.why{max-width:34rem;margin:0;padding:1rem 1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.why p{margin:0}
+.why strong{font-weight:700}
+
+.stack{display:grid;gap:3.5rem;min-width:0}
+.adv h2{
+  margin:0 0 .6rem;font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:2.1rem;line-height:1;letter-spacing:.01em;
+}
+.note{margin:0 0 .75rem;max-width:36rem;color:var(--muted)}
+
+.rows{margin:0;padding:0;list-style:none;border-bottom:1px solid var(--line)}
+.rows > li{
+  display:grid;grid-template-columns:minmax(0,9.5rem) minmax(0,1fr);gap:.25rem 1.5rem;
+  padding-block:1.1rem;border-top:1px solid var(--line);
+}
+.rows p{margin:0}
+.word{
+  margin:0;font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+  font-size:1.9rem;line-height:1;color:var(--link);
+}
+.when{
+  font-family:var(--font-display);font-weight:700;font-size:1.5rem;line-height:1.1;
+  font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.tag{
+  display:inline-block;margin-top:.5rem;padding:.05rem .6rem;border:1.5px solid var(--link);border-radius:999px;
+  color:var(--link);font-size:.8rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+}
+
+.share{margin-top:1.5rem;padding:1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.msg{margin:0 0 1rem;font-size:1.15rem;font-weight:500}
+.copied{margin-left:.75rem;color:var(--muted);font-size:.95rem}
+
+.foot{
+  grid-column:1/-1;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between;
+  padding-top:1.25rem;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem;
+}
+.foot a{color:var(--link);font-weight:600}
+
+@media (min-width:900px){
+  .adv{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:3rem 4rem}
+  .intro{position:sticky;top:calc(env(safe-area-inset-top,0px) + 1.5rem);align-self:start}
+}
+@media (max-width:560px){
+  .rows > li{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  .road::before{animation:none}
+  .btn{transition:none}
+}
+</style>
+
+<div class="shell">
+  <header class="bar">
+    <a class="plate" href="#poster" data-go="poster" aria-label="Para Po Commuters, poster">Para Po</a>
+    <nav class="tabs" aria-label="Pages">
+      <a href="#poster" data-go="poster" data-tab="poster">Poster</a>
+      <a href="#advocacy" data-go="advocacy" data-tab="advocacy">Advocacy</a>
+    </nav>
+  </header>
+
+  <!-- Page 1: slogan and poster -->
+  <main id="poster" class="page">
+    <section class="poster" aria-labelledby="slogan">
+      <ul class="modes" aria-label="Rides we ride for">
+        <li>Jeep</li><li>Bus</li><li>UV Express</li><li>Tricycle</li><li>MRT-3</li><li>LRT-1</li><li>LRT-2</li>
+      </ul>
+
+      <div class="poster-grid">
+        <h1 id="slogan" class="slogan"><span>Para</span><span>Po<i>.</i></span></h1>
+
+        <div class="poster-side">
+          <p class="tagline">Para sa commuter.</p>
+          <p class="tagline-en">Stop the daily struggle. Start moving with the people who move this country.</p>
+
+          <ul class="routes">
+            <li>
+              <span><b>Ligtas na daan</b><small>Safe stops, streets and rides</small></span>
+              <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 10h-6v10H9V12H3z"/></svg>
+            </li>
+            <li>
+              <span><b>Abot-kayang pamasahe</b><small>Fares that fit a daily wage</small></span>
+              <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 10h-6v10H9V12H3z"/></svg>
+            </li>
+            <li>
+              <span><b>Maaasahang biyahe</b><small>Rides that arrive when they should</small></span>
+              <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 10h-6v10H9V12H3z"/></svg>
+            </li>
+          </ul>
+
+          <a class="btn" href="#advocacy" data-go="advocacy">
+            Alamin ang adbokasiya
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="scene">
+        <svg viewBox="0 0 380 140" role="img" aria-label="A jeepney with a passenger calling out Para po">
+          <rect x="44" y="2" width="92" height="30" rx="15" class="j-yellow"/>
+          <path d="M70 31h16l-6 15z" class="j-yellow"/>
+          <text x="90" y="23" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="800" font-size="21" fill="#14201A">Para po!</text>
+
+          <rect x="170" y="40" width="76" height="14" rx="6" class="j-yellow"/>
+          <rect x="44" y="52" width="212" height="6" rx="3" class="j-body" opacity=".75"/>
+          <rect x="24" y="58" width="262" height="60" rx="12" class="j-body"/>
+          <rect x="268" y="84" width="88" height="34" rx="10" class="j-body"/>
+
+          <rect x="40" y="68" width="34" height="22" rx="4" class="j-win"/>
+          <rect x="82" y="68" width="34" height="22" rx="4" class="j-win"/>
+          <rect x="124" y="68" width="34" height="22" rx="4" class="j-win"/>
+          <rect x="166" y="68" width="34" height="22" rx="4" class="j-win"/>
+          <rect x="208" y="68" width="34" height="22" rx="4" class="j-win"/>
+          <path d="M250 68h22q6 0 9 6l3 10h-34z" class="j-win"/>
+
+          <rect x="24" y="98" width="324" height="8" class="j-yellow"/>
+          <circle cx="349" cy="91" r="3.5" class="j-yellow"/>
+          <rect x="340" y="110" width="20" height="6" rx="3" class="j-dark"/>
+
+          <circle cx="84" cy="122" r="18" class="j-dark"/><circle cx="84" cy="122" r="7" class="j-hub"/>
+          <circle cx="312" cy="122" r="18" class="j-dark"/><circle cx="312" cy="122" r="7" class="j-hub"/>
+        </svg>
+        <div class="road" aria-hidden="true"></div>
+      </div>
+    </section>
+    <p class="caption">Isang adbokasiya para sa mga commuter ng Pilipinas.</p>
+    <p> <b>Published: Kane Nold Roxas</b></p>
+    <p> <b>Email: kaneroxas123@gmail.com</b></p>
+  </main>
+
+  <!-- Page 2: the advocacy -->
+  <main id="advocacy" class="page" hidden>
+    <div class="adv">
+      <header class="intro">
+        <p class="eyebrow">Ang adbokasiya</p>
+        <h1>Every commuter deserves a ride that works.</h1>
+        <p class="lede">Every day, millions of Filipinos get to school, work and home on jeepneys, buses, trains, UV Express and tricycles. Para Po Commuters asks that the people who ride come first when decisions are made about roads, routes and fares.</p>
+        <div class="why">
+          <p><strong>Why “Para po”?</strong> Commuters say it to ask the driver to stop. <em>Para sa commuter</em> means “for the commuter.” We use both meanings. Stop what is not working, and start working for the people who ride.</p>
+        </div>
+      </header>
+
+      <div class="stack">
+        <section aria-labelledby="stand">
+          <h2 id="stand">What we stand for</h2>
+          <ul class="rows">
+            <li>
+              <h3 class="word">Ligtas</h3>
+              <p><strong>Safe.</strong> Lit streets and stops, roadworthy vehicles, trained drivers, and security in stations and on board, especially for women, students and night-shift workers.</p>
+            </li>
+            <li>
+              <h3 class="word">Abot-kaya</h3>
+              <p><strong>Affordable.</strong> Fares that fit a daily wage. Student, senior and PWD discounts are honored every time and easy to claim.</p>
+            </li>
+            <li>
+              <h3 class="word">Maaasahan</h3>
+              <p><strong>Dependable.</strong> Clear routes, posted schedules and enough vehicles at rush hour, so a commute is something you can plan around.</p>
+            </li>
+            <li>
+              <h3 class="word">Para sa lahat</h3>
+              <p><strong>Accessible.</strong> Covered walkways, ramps, working elevators and priority seats. A sidewalk is part of the route.</p>
+            </li>
+            <li>
+              <h3 class="word">Pakinggan</h3>
+              <p><strong>Heard.</strong> Commuters have a seat at the table when routes, fares and projects are decided, and complaints get an answer.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="day">
+          <h2 id="day">Isang araw ng commuter</h2>
+          <p class="note">An example day, written to show where each of the five needs goes unmet. It is not one person’s record.</p>
+          <ol class="rows">
+            <li><time class="when">4:30 AM</time><p>Wake up and leave early, because no one can say when the first ride will arrive.<br><span class="tag">Maaasahan</span></p></li>
+            <li><time class="when">5:20 AM</time><p>Walk to the terminal on a road with no sidewalk and no streetlight.<br><span class="tag">Ligtas</span></p></li>
+            <li><time class="when">5:45 AM</time><p>Line up. The jeep fills before you reach the front, and the fare takes a big share of the day’s pay.<br><span class="tag">Abot-kaya</span></p></li>
+            <li><time class="when">7:10 AM</time><p>Transfer to the train. The platform is packed, so you let two trains go.<br><span class="tag">Maaasahan</span></p></li>
+            <li><time class="when">8:20 AM</time><p>Climb an uncovered footbridge with no ramp, with a heavy bag, in the heat or the rain.<br><span class="tag">Para sa lahat</span></p></li>
+            <li><time class="when">8:50 AM</time><p>Arrive at work or class already tired. Nobody asked how the ride was.<br><span class="tag">Pakinggan</span></p></li>
+            <li><time class="when">7:30 PM</time><p>Start the trip home. The same queues, now in the dark and sometimes in the rain.<br><span class="tag">Ligtas</span></p></li>
+            <li><time class="when">9:15 PM</time><p>Home. The alarm is set for 4:30.</p></li>
+          </ol>
+        </section>
+
+        <section aria-labelledby="act">
+          <h2 id="act">Ano ang magagawa mo</h2>
+          <ul class="rows">
+            <li>
+              <h3 class="word">Ikuwento</h3>
+              <p><strong>Share your commute.</strong> Tell family, classmates and coworkers what your ride is really like. Real stories move people more than numbers.</p>
+            </li>
+            <li>
+              <h3 class="word">Isumbong</h3>
+              <p><strong>Report what you see.</strong> Note broken lights, unsafe stops, overcharging and long waits, then raise them with your barangay, your city hall, or agencies such as the LTFRB and DOTr.</p>
+            </li>
+            <li>
+              <h3 class="word">Sumali</h3>
+              <p><strong>Join the conversation.</strong> Attend public consultations and hearings on routes and fares when they are announced, and bring other commuters with you.</p>
+            </li>
+          </ul>
+
+          <div class="share">
+            <p id="msg" class="msg">Para po. Para sa commuter. Ligtas, abot-kaya at maaasahang biyahe para sa lahat. #ParaPoSaCommuter</p>
+            <button id="copy" class="btn" type="button">Copy message</button>
+            <span id="copied" class="copied" role="status" aria-live="polite"></span>
+          </div>
+        </section>
+      </div>
+
+      <footer class="foot">
+        
+        <p> <b>Published: Kane Nold Roxas</b></p>
+        <p> <b>Email: kaneroxas123@gmail.com</b></p>
+        <a href="#poster" data-go="poster">Back to the poster</a>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  var pages = { poster: document.getElementById('poster'), advocacy: document.getElementById('advocacy') };
+  var tabs = document.querySelectorAll('[data-tab]');
+
+  function show(key) {
+    if (!pages[key]) key = 'poster';
+    pages.poster.hidden = key !== 'poster';
+    pages.advocacy.hidden = key !== 'advocacy';
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-tab') === key) t.setAttribute('aria-current', 'page');
+      else t.removeAttribute('aria-current');
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function fromHash() {
+    return location.hash === '#advocacy' ? 'advocacy' : 'poster';
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('[data-go]') : null;
+    if (!a) return;
+    e.preventDefault();
+    var key = a.getAttribute('data-go');
+    show(key);
+    try { history.replaceState(null, '', '#' + key); } catch (err) { /* hash is a convenience only */ }
+  });
+
+  window.addEventListener('hashchange', function () { show(fromHash()); });
+  show(fromHash());
+
+  var msg = document.getElementById('msg');
+  var copyBtn = document.getElementById('copy');
+  var note = document.getElementById('copied');
+  copyBtn.addEventListener('click', async function () {
+    var text = msg.textContent.trim();
+    try {
+      await navigator.clipboard.writeText(text);
+      note.textContent = 'Copied. Paste it anywhere.';
+    } catch (err) {
+      var range = document.createRange();
+      range.selectNodeContents(msg);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      note.textContent = 'Message selected. Copy it from your keyboard or menu.';
+    }
+  });
+})();
+</script>
+
+</body></html>
